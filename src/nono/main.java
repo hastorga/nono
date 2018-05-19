@@ -17,9 +17,9 @@ public class main {
 		//Array List de Filas
 		ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
 		
+		//Array List de Columnas
+		ArrayList<ArrayList<Integer>> columnas = new ArrayList<ArrayList<Integer>>();
 		
-		//SUMA DE CUADRADOS A PINTAR DE FILA
-		int suma = 0 ;
 
 		//SIMULACIONES DE FILA Y CUADRADOS A PINTAR
 		char [] arrayFila = {'-' , '-' , '-' , '-' , '-'};
@@ -30,10 +30,10 @@ public class main {
 		int [] arrayF2 = {1,3};
 		int [] arrayF3 = {3,1};
 		int [] arrayF4 = {5};
-		int [] arrayF5 = {1,3};
+		int [] arrayF5 = {1};
 
 		
-		//LLENA MATRIZ
+		//LLENA MATRIZ CON CARACTERES '-' (SIN PINTAR) 
 		
 		for(int i=0; i<N; i++)
 		{	
@@ -45,7 +45,7 @@ public class main {
 		
 		//IMPRIME MATRIZ
 		
-		System.out.println("MATRIZ:");
+		System.out.println("MATRIZ VACIA:");
 		
 		for(int i=0; i<N; i++)
 		{	
@@ -57,25 +57,31 @@ public class main {
 			
 		}
 		
-		//INICIALIZAN ARRAY LIST DE SEGMENTOS DE FILAS
+		//INICIALIZAN ARRAYS LIST DE SEGMENTOS DE FILAS
 		for(int i=0; i<N; i++)
 		{	
 			filas.add(new ArrayList <Integer>() );			
 		}
 		
 		//SE LLENAN ARRAYS LIST DE SEGMENTOS DE FILAS
-		for(int i=0; i<N; i++)
-		{	
-			for(int j=0; j<arrayF2.length ; j++)
-			{
-				filas.get(i).add(arrayF2[j]);
-			}
-		}
+		//(Debiese ser dinamico y leido desde archivo de texto)
+	
+		for(int j=0; j<arrayF1.length ; j++)
+			filas.get(0).add(arrayF1[j]);
+		for(int j=0; j<arrayF2.length ; j++)
+			filas.get(1).add(arrayF2[j]);
+		for(int j=0; j<arrayF3.length ; j++)
+			filas.get(2).add(arrayF3[j]);
+		for(int j=0; j<arrayF4.length ; j++)
+			filas.get(3).add(arrayF4[j]);
+		for(int j=0; j<arrayF5.length ; j++)
+			filas.get(4).add(arrayF5[j]);
+			
 		
-		
+	
 		//SE IMPRIMEN ARRAY LIST DE FILAS
 		
-		System.out.println("\nARRAY LIST: ");
+		System.out.println("\nARRAY LIST FILAS: ");
 		for(int i=0; i<filas.size(); i++)
 		{	
 			System.out.print(" \n--> AL "+(i+1)+": ");
@@ -86,53 +92,73 @@ public class main {
 
 		}
 		
-		//SE CALCULA LA SUMA DE CUADRADOS A PINTAR EN FILA
-		for(int i=0; i<arraySegmentos.length; i++)
-		{
-			suma = suma + arraySegmentos[i];
-		}
 		
+		//CICLO PARA FILAS
 		
-		//PINTAR REGLA 1 EN FILA	
-		if(arraySegmentos.length==1 && arraySegmentos[0] == M)
+		for(int x=0 ; x<filas.size() ; x++)
 		{
-			for(int i=0; i<arrayFila.length; i++)
-				arrayFila[i]='#';
-
-		}
-		
-		//PINTAR REGLA 2 EN FILA
-		if(suma == (M-(arraySegmentos.length-1)))
-		{
+			int suma = 0;
 			
-			int indiceColumna = 0;
-			
-			for(int i=0; i<arraySegmentos.length; i++)
+			//SUMA DE CUADRADOS A PINTAR EN FILA
+			for(int i=0; i<filas.get(x).size(); i++)
 			{
-				int segmento = arraySegmentos[i];
-				
-				for(int j=0; j<segmento; j++)
+				suma = suma + filas.get(x).get(i);
+			}
+			
+			//PINTAR REGLA 1 EN FILA	
+			if(filas.get(x).size()==1 && filas.get(x).get(0) == M)
+			{
+				for(int i=0; i<filas.get(x).size(); i++)
 				{
-					//PINTA CON '#'
-					arrayFila[indiceColumna]='#';
-					indiceColumna++;
+					matriz[x][i] = '#';
+				}
+					
+			}
+			
+			//PINTAR REGLA 2 EN FILA
+			if(suma == (M-(filas.get(x).size()-1)))
+			{
+				
+				int indiceColumna = 0;
+				
+				for(int i=0; i<filas.get(x).size(); i++)
+				{
+					int segmento = filas.get(x).get(i);
+					
+					for(int j=0; j<segmento; j++)
+					{
+						//PINTA CON '#'
+						matriz[x][indiceColumna]='#';
+						indiceColumna++;
+					}
+					
+					//AGREGAR ESPACIO
+					if(i<filas.get(x).size()-1)
+					{
+						matriz[x][indiceColumna]='-';
+						indiceColumna++;
+					}
+					
 				}
 				
-				//AGREGAR ESPACIO
-				if(i<arraySegmentos.length-1)
-				{
-					arrayFila[indiceColumna]='-';
-					indiceColumna++;
-				}
 				
 			}
 			
-			//IMPRIME FILA
-			System.out.print("\n\nFila pintada: \n");
-			for(int i=0; i<arrayFila.length; i++)
-				System.out.print(" "+arrayFila[i]);
+		}
+	
+		//IMPRIME MATRIZ
+		
+		System.out.println("\n\nMATRIZ PINTADA:");
+		
+		for(int i=0; i<N; i++)
+		{	
+			for(int j=0; j<M; j++)
+			{
+				System.out.print(" "+matriz[i][j]);
+			}
+			System.out.println();
 			
-		}	
+		}
 	
 	}
 
