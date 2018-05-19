@@ -14,11 +14,17 @@ public class main {
 		char matriz[][] = new char[N][M];
 		
 		
-		//Array List de Filas
-		ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
 		
-		//Array List de Columnas
-		ArrayList<ArrayList<Integer>> columnas = new ArrayList<ArrayList<Integer>>();
+		Lectura leer_fichero = new Lectura();
+		System.out.println("lectura de fichero");
+		leer_fichero.leer_fichero();
+		
+		//Array List de Filas
+				ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
+				
+				//Array List de Columnas
+				ArrayList<ArrayList<Integer>> columnas = leer_fichero.get_Columnas();
+	
 		
 		
 		//ARREGLOS DE PRUEBA (Insertar en ArrayList de Filas o columnas)
@@ -57,7 +63,7 @@ public class main {
 		for(int i=0; i<N; i++)
 		{	
 			filas.add(new ArrayList <Integer>() );	
-			columnas.add(new ArrayList <Integer>() );	
+			//columnas.add(new ArrayList <Integer>() );	
 		}
 		
 		
@@ -77,7 +83,7 @@ public class main {
 		for(int j=0; j<arrayF5.length ; j++)
 			filas.get(4).add(arrayF5[j]);
 		*/
-		
+		/* HECTOR: esto ya se carga dinamicamente
 		for(int j=0; j<arrayF1.length ; j++)
 			columnas.get(0).add(arrayF1[j]);
 		for(int j=0; j<arrayF2.length ; j++)
@@ -88,7 +94,7 @@ public class main {
 			columnas.get(3).add(arrayF4[j]);
 		for(int j=0; j<arrayF5.length ; j++)
 			columnas.get(4).add(arrayF5[j]);
-			
+			*/
 		
 	
 		//SE IMPRIMEN ARRAY LIST DE FILAS
@@ -104,7 +110,7 @@ public class main {
 
 		}
 		
-		System.out.println("\nARRAY LIST COLUMNAS: ");
+		System.out.println("\nARRAYLIST COLUMNAS: ");
 		for(int i=0; i<columnas.size(); i++)
 		{	
 			System.out.print(" \n--> AL "+(i+1)+": ");
