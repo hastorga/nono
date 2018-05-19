@@ -3,15 +3,17 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Lectura {
-	 	private ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
-		
-		private ArrayList<ArrayList<Integer>> columnas = new ArrayList<ArrayList<Integer>>();
+	
+ 	private ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
+	
+	private ArrayList<ArrayList<Integer>> columnas = new ArrayList<ArrayList<Integer>>();
 		
 	public void leer_fichero() {
+		
 		File archivo = null;
 	    FileReader fr = null;
 	    BufferedReader br = null;
-	  //Array List de Filas
+	    //Array List de Filas
 	   
 	    try {
 	       // Apertura del fichero y creacion de BufferedReader para poder
@@ -64,10 +66,13 @@ public class Lectura {
 	    }
 	    
 	}
+	
+	
 	public ArrayList<ArrayList<Integer>> get_Columnas () {
 		return  columnas;
 	}
-	public ArrayList<ArrayList<Integer>> get_filas () {
+	
+	public ArrayList<ArrayList<Integer>> get_Filas () {
 		return  filas;
 	}
 	
