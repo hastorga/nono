@@ -7,27 +7,98 @@ public class Lectura {
  	private ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
 	
 	private ArrayList<ArrayList<Integer>> columnas = new ArrayList<ArrayList<Integer>>();
+	
+	private int N,M;
+	
+	public void leer_ficheros ()
+	{
+		leer_columna ();
+		leer_fila ();
+	}
 		
-	public void leer_fichero() {
+	
+	public void leer_columna() {
+			
+			File archivo = null;
+		    FileReader fr = null;
+		    BufferedReader br = null;
+		    //Array List de Filas
+		   
+		    try {
+		       // Apertura del fichero y creacion de BufferedReader para poder
+		       // hacer una lectura comoda (disponer del metodo readLine()).
+		       archivo = new File ("columnas.txt");
+		       fr = new FileReader (archivo);
+		       br = new BufferedReader(fr);
+		
+		       //Se lee la primera linea que contiene al M
+		     M = Integer.parseInt(br.readLine());
+				
+		       // Lectura del fichero
+		       String linea;
+		       int countline = 0;
+		       while((linea=br.readLine())!=null && countline < M)
+		       {
+		    	   
+		    	   //Se crea un array por cada linea
+		    	   ArrayList<Integer> array = new ArrayList<Integer>();
+		    	   String splittedString[] = linea.split(",");
+		    	   for (int j=0; j<splittedString.length; j++)
+		    	   {
+		    		  //por cada linea se obtienen chars que se agregan al array.
+		 	    	  int valor = Integer.parseInt(splittedString[j]);
+		 	    	  array.add(valor);
+		    	   }
+		    	   columnas.add(array);
+		    	   countline++;
+		    	
+		       }
+		       
+		    }
+		    catch(Exception e){
+		       e.printStackTrace();
+		    }finally{
+		       // En el finally cerramos el fichero, para asegurarnos
+		       // que se cierra tanto si todo va bien como si salta 
+		       // una excepcion.
+		       try{                    
+		          if( null != fr ){   
+		             fr.close();     
+		          }                  
+		       }catch (Exception e2){ 
+		          e2.printStackTrace();
+		       }
+		    }
+		    System.out.println("vector columnas");
+		    
+		    for(int k = 0; k < columnas.size() ;k++)
+		    {
+		    	System.out.println(columnas.get(k));
+		    }
+		    
+		}
+	public void leer_fila() {
 		
 		File archivo = null;
 	    FileReader fr = null;
 	    BufferedReader br = null;
-	    //Array List de Filas
 	   
 	    try {
 	       // Apertura del fichero y creacion de BufferedReader para poder
 	       // hacer una lectura comoda (disponer del metodo readLine()).
-	       archivo = new File ("columnas.txt");
+	       archivo = new File ("filas.txt");
 	       fr = new FileReader (archivo);
 	       br = new BufferedReader(fr);
 	
+	       //Se lee la primera linea que contiene al N
+		     N = Integer.parseInt(br.readLine());
 	     
 			
 	       // Lectura del fichero
 	       String linea;
+	       int countline=0;
 	   
-	       while((linea=br.readLine())!=null)
+	       while((linea=br.readLine())!=null && countline <N)
 	       {
 	    	   //Se crea un array por cada linea
 	    	   ArrayList<Integer> array = new ArrayList<Integer>();
@@ -38,8 +109,8 @@ public class Lectura {
 	 	    	  int valor = Integer.parseInt(splittedString[j]);
 	 	    	  array.add(valor);
 	    	   }
-	    	   columnas.add(array);
-	    	   System.out.println("--NUEVA LINEA");
+	    	   filas.add(array);
+	    	   countline++;
 	    	
 	       }
 	       
@@ -58,15 +129,15 @@ public class Lectura {
 	          e2.printStackTrace();
 	       }
 	    }
-	    System.out.println("vector columnas");
+	    System.out.println("vector filas");
 	    
-	    for(int k = 0; k < columnas.size() ;k++)
+	    for(int k = 0; k < filas.size() ;k++)
 	    {
-	    	System.out.println(columnas.get(k));
+	    	System.out.println(filas.get(k));
 	    }
 	    
 	}
-	
+		
 	
 	public ArrayList<ArrayList<Integer>> get_Columnas () {
 		return  columnas;
