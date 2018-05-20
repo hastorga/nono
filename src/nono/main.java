@@ -35,13 +35,13 @@ public class main {
 		int [] arrayF5 = {1,1,1};
 
 		
-		//LLENA MATRIZ CON CARACTERES '-' (SIN PINTAR) 
+		//LLENA MATRIZ CON CARACTERES '*' (SIN PINTAR) 
 		
 		for(int i=0; i<N; i++)
 		{	
 			for(int j=0; j<M; j++)
 			{
-				matriz[i][j]='-';
+				matriz[i][j]='*';
 			}
 		}
 		
@@ -87,6 +87,61 @@ public class main {
 			}
 
 		}
+		
+		//CICLO PARA FILAS
+		
+		
+		for(int x=0 ; x<filas.size() ; x++)
+		{
+			int suma = 0;
+			
+			//SUMA DE CUADRADOS A PINTAR EN FILA
+			for(int i=0; i<filas.get(x).size(); i++)
+			{
+				suma = suma + filas.get(x).get(i);
+			}
+			
+			//PINTAR REGLA 1 EN FILA	
+			if(filas.get(x).size()==1 && filas.get(x).get(0) == M)
+			{
+				for(int i=0; i<filas.get(x).size(); i++)
+				{
+					matriz[x][i] = '#';
+				}
+					
+			}
+			
+			//PINTAR REGLA 2 EN FILA
+			if(suma == (M-(filas.get(x).size()-1)))
+			{
+				
+				int indiceColumna = 0;
+				
+				for(int i=0; i<filas.get(x).size(); i++)
+				{
+					int segmento = filas.get(x).get(i);
+					
+					for(int j=0; j<segmento; j++)
+					{
+						//PINTA CON '#'
+						matriz[x][indiceColumna]='#';
+						indiceColumna++;
+					}
+					
+					//AGREGAR ESPACIO
+					if(i<filas.get(x).size()-1)
+					{
+						matriz[x][indiceColumna]='-';
+						indiceColumna++;
+					}
+					
+				}
+				
+				
+			}
+			
+		}
+	
 		
 		//CICLO PARA COLUMNAS
 		
