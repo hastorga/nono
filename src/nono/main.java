@@ -20,10 +20,10 @@ public class main {
 		leer_fichero.leer_fichero();
 		
 		//Array List de Filas
-				ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
-				
-				//Array List de Columnas
-				ArrayList<ArrayList<Integer>> columnas = leer_fichero.get_Columnas();
+		ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
+		
+		//Array List de Columnas
+		ArrayList<ArrayList<Integer>> columnas = leer_fichero.get_Columnas();
 	
 		
 		
@@ -59,47 +59,11 @@ public class main {
 			
 		}
 		
-		//SE INICIALIZAN ARRAYS LIST DE SEGMENTOS DE FILAS Y COLUMNAS
-		for(int i=0; i<N; i++)
-		{	
-			filas.add(new ArrayList <Integer>() );	
-			//columnas.add(new ArrayList <Integer>() );	
-		}
 		
-		
-		//SE LLENAN ARRAYS LIST DE SEGMENTOS DE FILAS
-		//(Debiese ser dinamico y leido desde archivo de texto)
-		
-		/*
-	
-		for(int j=0; j<arrayF1.length ; j++)
-			filas.get(0).add(arrayF1[j]);
-		for(int j=0; j<arrayF2.length ; j++)
-			filas.get(1).add(arrayF2[j]);
-		for(int j=0; j<arrayF3.length ; j++)
-			filas.get(2).add(arrayF3[j]);
-		for(int j=0; j<arrayF4.length ; j++)
-			filas.get(3).add(arrayF4[j]);
-		for(int j=0; j<arrayF5.length ; j++)
-			filas.get(4).add(arrayF5[j]);
-		*/
-		/* HECTOR: esto ya se carga dinamicamente
-		for(int j=0; j<arrayF1.length ; j++)
-			columnas.get(0).add(arrayF1[j]);
-		for(int j=0; j<arrayF2.length ; j++)
-			columnas.get(1).add(arrayF2[j]);
-		for(int j=0; j<arrayF3.length ; j++)
-			columnas.get(2).add(arrayF3[j]);
-		for(int j=0; j<arrayF4.length ; j++)
-			columnas.get(3).add(arrayF4[j]);
-		for(int j=0; j<arrayF5.length ; j++)
-			columnas.get(4).add(arrayF5[j]);
-			*/
-		
-	
 		//SE IMPRIMEN ARRAY LIST DE FILAS
 		
 		System.out.println("\nARRAY LIST FILAS: ");
+		
 		for(int i=0; i<filas.size(); i++)
 		{	
 			System.out.print(" \n--> AL "+(i+1)+": ");
@@ -110,7 +74,10 @@ public class main {
 
 		}
 		
+		//SE IMPRIMEN ARRAY LIST DE COLUMNAS
+		
 		System.out.println("\nARRAYLIST COLUMNAS: ");
+		
 		for(int i=0; i<columnas.size(); i++)
 		{	
 			System.out.print(" \n--> AL "+(i+1)+": ");
