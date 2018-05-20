@@ -17,10 +17,10 @@ public class main {
 		
 		Lectura leer_fichero = new Lectura();
 		System.out.println("lectura de fichero");
-		leer_fichero.leer_fichero();
+		leer_fichero.leer_ficheros();
 		
 		//Array List de Filas
-		ArrayList<ArrayList<Integer>> filas = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> filas = leer_fichero.get_Filas();
 		
 		//Array List de Columnas
 		ArrayList<ArrayList<Integer>> columnas = leer_fichero.get_Columnas();
@@ -88,62 +88,6 @@ public class main {
 
 		}
 		
-		
-		//CICLO PARA FILAS
-		
-		/*
-		for(int x=0 ; x<filas.size() ; x++)
-		{
-			int suma = 0;
-			
-			//SUMA DE CUADRADOS A PINTAR EN FILA
-			for(int i=0; i<filas.get(x).size(); i++)
-			{
-				suma = suma + filas.get(x).get(i);
-			}
-			
-			//PINTAR REGLA 1 EN FILA	
-			if(filas.get(x).size()==1 && filas.get(x).get(0) == M)
-			{
-				for(int i=0; i<filas.get(x).size(); i++)
-				{
-					matriz[x][i] = '#';
-				}
-					
-			}
-			
-			//PINTAR REGLA 2 EN FILA
-			if(suma == (M-(filas.get(x).size()-1)))
-			{
-				
-				int indiceColumna = 0;
-				
-				for(int i=0; i<filas.get(x).size(); i++)
-				{
-					int segmento = filas.get(x).get(i);
-					
-					for(int j=0; j<segmento; j++)
-					{
-						//PINTA CON '#'
-						matriz[x][indiceColumna]='#';
-						indiceColumna++;
-					}
-					
-					//AGREGAR ESPACIO
-					if(i<filas.get(x).size()-1)
-					{
-						matriz[x][indiceColumna]='-';
-						indiceColumna++;
-					}
-					
-				}
-				
-				
-			}
-			
-		}
-		*/
-		
 		//CICLO PARA COLUMNAS
 		
 		for(int x=0 ; x<columnas.size() ; x++)
@@ -159,6 +103,7 @@ public class main {
 			//PINTAR REGLA 1 EN COLUMNA	
 			if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N)
 			{
+				
 				for(int i=0; i<columnas.get(x).size(); i++)
 				{
 					matriz[i][x] = '#';
