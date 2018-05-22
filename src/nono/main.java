@@ -7,33 +7,24 @@ public class main {
 
 	public static void main(String[] args) {
 	
-
+		System.out.println("lectura de fichero");
+		Lectura archivo = new Lectura();
+		archivo.leer_ficheros();
+		
 		//Dimensiones Matriz
-		int N=5;
-		int M=5;
+		int N = archivo.getN();
+		int M = archivo.getM();
 		char matriz[][] = new char[N][M];
 		
-		
-		
-		Lectura leer_fichero = new Lectura();
-		System.out.println("lectura de fichero");
-		leer_fichero.leer_ficheros();
-		
 		//Array List de Filas
-		ArrayList<ArrayList<Integer>> filas = leer_fichero.get_Filas();
+		ArrayList<ArrayList<Integer>> filas = archivo.get_Filas();
 		
 		//Array List de Columnas
-		ArrayList<ArrayList<Integer>> columnas = leer_fichero.get_Columnas();
-	
+		ArrayList<ArrayList<Integer>> columnas = archivo.get_Columnas();
 		
+		int columnasResueltas[] = new int[M];
+		int filasResueltas[] = new int[N];
 		
-		//ARREGLOS DE PRUEBA (Insertar en ArrayList de Filas o columnas)
-		int [] arrayF1 = {1,1,1};
-		int [] arrayF2 = {1,3};
-		int [] arrayF3 = {3,1};
-		int [] arrayF4 = {5};
-		int [] arrayF5 = {1,1,1};
-
 		
 		//LLENA MATRIZ CON CARACTERES '*' (SIN PINTAR) 
 		
@@ -44,6 +35,7 @@ public class main {
 				matriz[i][j]='*';
 			}
 		}
+		
 		
 		//IMPRIME MATRIZ
 		

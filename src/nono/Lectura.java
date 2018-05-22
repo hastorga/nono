@@ -114,5 +114,12 @@ public class Lectura {
 		return  filas;
 	}
 	
+	public int getN() {
+		return  N;
+	}
+	
+	public int getM() {
+		return  M;
+	}
 }
 
