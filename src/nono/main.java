@@ -59,6 +59,8 @@ public class main {
 			
 		}
 		
+		//mostrarMatriz(N,M,matriz);
+		
 		
 		//SE IMPRIMEN ARRAY LIST DE FILAS
 		
@@ -210,7 +212,93 @@ public class main {
 			System.out.println();
 			
 		}
+		
+		mostrarMatrizCompleta(N,M,matriz,columnas, filas);
 	
+	}
+	
+	public static void mostrarMatrizCompleta(int N, int M , char matriz[][], ArrayList<ArrayList<Integer>> columnas, ArrayList<ArrayList<Integer>> filas)
+	{
+		
+		//DIMENSIONES DE MATRIZ COMPLETA
+		int dimCol;
+		int dimFil;
+		
+		int indCol = 0;
+		int indFil = 0;
+		
+		
+        //SE CALCULA DIMENSION MAXIMA PARA COLUMNAS DE MATRIZ COMPLETA
+		if(M%2==0)
+			dimCol = M+(M/2);
+		else
+			dimCol = M + ((M+1)/2);
+		
+		//SE CALCULA DIMENSION MAXIMA PARA FILAS DE MATRIZ COMPLETA
+		if(N%2==0)
+			dimFil = N+(N/2);
+		else
+			dimFil = N + ((N+1)/2);
+		
+		
+		//SE INICIALIZA LA MATRIZ COMPLETA
+		char matrizCompleta[][] = new char[dimFil][dimCol];
+		
+		
+		//SE INICIALIZAN TODAS LAS POSICIONES DE LA MATRIZ CON VACIO
+		for(int i=0; i<dimFil; i++)
+		{	
+			for(int j=0; j<dimCol; j++)
+			{
+				matrizCompleta[i][j] = ' ';
+			}
+			
+		}
+		
+		//SE AGREGAN LOS SEGMENTOS A PINTAR PARA CADA COLUMNA
+		for(int i=(dimCol-M) ; i<dimCol; i++)
+		{	
+			for(int j=0 ; j<columnas.get(indCol).size(); j++)
+			{
+				String segmento = String.valueOf(columnas.get(indCol).get(j)); 
+				matrizCompleta[j][i] = segmento.charAt(0);
+					
+			}	
+			indCol++;
+		}
+		
+		//SE AGREGAN LOS SEGMENTOS A PINTAR PARA CADA FILA
+		for(int i=(dimFil-N) ; i<dimFil; i++)
+		{	
+			for(int j=0 ; j<filas.get(indFil).size(); j++)
+			{
+				String segmento = String.valueOf(filas.get(indFil).get(j)); 
+				matrizCompleta[i][j] = segmento.charAt(0);
+					
+			}	
+			indFil++;
+		}
+		
+		//SE AGREGAN LOS VALORES DE LA MATRIZ QUE CONTIENE EL JUEGO
+		for(int i=0; i<N; i++)	
+			for(int j=0; j<M; j++)
+				matrizCompleta[i+(dimFil-N)][j+(dimCol-M)] = matriz[i][j];
+
+		
+		//SE IMPRIME LA MATRIZ COMPLETA
+		
+		System.out.println();
+		
+		for(int i=0; i<dimFil; i++)
+		{	
+			for(int j=0; j<dimCol; j++)
+			{
+				System.out.print(" "+matrizCompleta[i][j]);
+			}
+			System.out.println();
+		
+		}
+			
 	}
 
 }
