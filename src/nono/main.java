@@ -7,7 +7,6 @@ public class main {
 
 	public static void main(String[] args) {
 	
-		System.out.println("lectura de fichero");
 		Lectura archivo = new Lectura();
 		archivo.leer_ficheros();
 		
@@ -24,8 +23,7 @@ public class main {
 		
 		int columnasResueltas[] = new int[M];
 		int filasResueltas[] = new int[N];
-		
-		
+
 		//LLENA MATRIZ CON CARACTERES '*' (SIN PINTAR) 
 		
 		for(int i=0; i<N; i++)
@@ -34,24 +32,15 @@ public class main {
 			{
 				matriz[i][j]='*';
 			}
-		}
-		
-		
-		//IMPRIME MATRIZ
-		
-		System.out.println("MATRIZ VACIA:");
-		
-		for(int i=0; i<N; i++)
-		{	
-			for(int j=0; j<M; j++)
-			{
-				System.out.print(" "+matriz[i][j]);
-			}
-			System.out.println();
 			
 		}
 		
-		//mostrarMatriz(N,M,matriz);
+		
+		//IMPRIME MATRIZ VACIA
+		
+		System.out.println("MATRIZ VACIA:");
+		
+		mostrarMatriz(N,M,matriz);
 		
 		
 		//SE IMPRIMEN ARRAY LIST DE FILAS
@@ -82,8 +71,29 @@ public class main {
 
 		}
 		
-		//CICLO PARA FILAS
+		/*
+		 * 
+		 * CICLO ITERATIVO A IMPLEMENTAR PRONTO:
+		 * 
+		 * El ciclo acaba cuando todas las filas y columnas están resueltas (Juego terminado)
+		 * o cuando no se puede avanzar a una siguiente iteracion (Falta de reglas para llegar a la solucion).
+		 * 
+		 * 
+		 * De esta manera se evita entrar en un loop infinito buscando la solucion.
+		 * 
 		
+		while( !nonoResuelto(filasResueltas,columnasResueltas) || sinAvance(rellenar parametros) )
+		{
+			int auxFilasResueltas[] = filasResueltas.clone();
+			int auxColumnasResueltas[] = columnasResueltas.clone();
+			
+			//CICLO DE FILAS
+			//CICLO DE COLUMNAS
+		}
+		
+		*/
+		
+		//CICLO PARA FILAS
 		
 		for(int x=0 ; x<filas.size() ; x++)
 		{
@@ -102,6 +112,8 @@ public class main {
 				{
 					matriz[x][i] = '#';
 				}
+				
+				filasResueltas[x]=1;
 					
 			}
 			
@@ -130,7 +142,7 @@ public class main {
 					}
 					
 				}
-				
+				filasResueltas[x]=1;
 				
 			}
 			
@@ -157,6 +169,8 @@ public class main {
 				{
 					matriz[i][x] = '#';
 				}
+				
+				columnasResueltas[x]=1;
 					
 			}
 			
@@ -185,7 +199,7 @@ public class main {
 					}
 					
 				}
-				
+				columnasResueltas[x]=1;
 				
 			}
 			
@@ -195,6 +209,22 @@ public class main {
 		
 		System.out.println("\n\nMATRIZ PINTADA:");
 		
+		mostrarMatriz(N,M,matriz);
+		
+		
+		if(nonoResuelto(filasResueltas, columnasResueltas))
+			System.out.println("\n\nJUEGO TERMINADO");
+		else
+			System.out.println("\n\nJUEGO INCOMPLETO");
+		
+		mostrarMatrizCompleta(N,M,matriz,columnas,filas);
+	
+	}
+	
+	
+	
+	public static void mostrarMatriz(int N, int M , char matriz[][])
+	{
 		for(int i=0; i<N; i++)
 		{	
 			for(int j=0; j<M; j++)
@@ -205,9 +235,8 @@ public class main {
 			
 		}
 		
-		mostrarMatrizCompleta(N,M,matriz,columnas, filas);
-	
 	}
+	
 	
 	public static void mostrarMatrizCompleta(int N, int M , char matriz[][], ArrayList<ArrayList<Integer>> columnas, ArrayList<ArrayList<Integer>> filas)
 	{
@@ -292,5 +321,48 @@ public class main {
 		}
 			
 	}
+	
+	public static boolean nonoResuelto(int[] filasResueltas, int[] columnasResueltas)
+	{
+
+		for(int i=0; i<columnasResueltas.length; i++)
+		{
+			if(columnasResueltas[i]==0)
+				return false;
+		}
+		
+		for(int i=0; i<filasResueltas.length; i++)
+		{
+			if(filasResueltas[i]==0)
+				return false;
+		}
+		
+		return true;
+	}
+	
+	public static boolean sinAvance(int[] filasResueltas, int[] columnasResueltas, int[] auxColResueltas, int[] auxFilResueltas)
+	{
+		boolean filasIguales = true;
+		boolean columnasIguales = true;
+
+		for(int i=0; i<columnasResueltas.length; i++)
+		{
+			if(columnasResueltas[i] != auxColResueltas[i])
+				columnasIguales = false;
+		}
+		
+		for(int i=0; i<filasResueltas.length; i++)
+		{
+			if(filasResueltas[i] != auxFilResueltas[i])
+				filasIguales = false;
+		}
+		
+		//NO HAY AVANCE
+		if( filasIguales && columnasIguales)
+			return true;
+		else
+			return false;
+	}
+
 
 }
