@@ -117,6 +117,7 @@ public class main {
 					
 			}
 			
+			
 			//PINTAR REGLA 2 EN FILA
 			if(suma == (M-(filas.get(x).size()-1)))
 			{
@@ -145,6 +146,68 @@ public class main {
 				filasResueltas[x]=1;
 				
 			}
+			
+			//PINTAR REGLA 3 EN FILA	
+			if(filas.get(x).size()==1)
+			{
+
+				int segmento = filas.get(x).get(0);
+				
+				if( matriz[x][0] == '#')
+				{
+					for(int i=0; i<segmento; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					
+					for(int i=segmento; i< M; i++)
+					{
+						matriz[x][i] = '-';
+					}
+					
+					filasResueltas[x]=1;
+				}
+				
+				if( matriz[x][M-1] == '#')
+				{
+					for(int i=0; i< M-segmento; i++)
+					{
+						matriz[x][i] = '-';
+					}
+					
+					for(int i=M-segmento; i< M; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					filasResueltas[x]=1;
+				}
+				
+					
+			}
+			
+			//PINTAR REGLA 5 EN FILA
+			if(filas.get(x).size()==1 && filas.get(x).get(0) == M-1)
+			{
+				if( matriz[x][0] == '-')
+				{
+					for(int i=1; i< M; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					filasResueltas[x]=1;
+				}
+				
+				if( matriz[x][M-1] == '-')
+				{
+					for(int i=0; i< M-1; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					filasResueltas[x]=1;
+				}
+						
+			}
+			
 			
 		}
 	
@@ -201,6 +264,69 @@ public class main {
 				}
 				columnasResueltas[x]=1;
 				
+			}
+			
+			//PINTAR REGLA 3 EN COLUMNA	
+			if(columnas.get(x).size()==1)
+			{
+
+				int segmento = columnas.get(x).get(0);
+				
+				if( matriz[0][x] == '#')
+				{
+					for(int i=0; i<segmento; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					
+					for(int i=segmento; i< N; i++)
+					{
+						matriz[i][x] = '-';
+					}
+					
+					columnasResueltas[x]=1;
+				}
+				
+				if( matriz[N-1][x] == '#')
+				{
+					for(int i=0; i< N-segmento; i++)
+					{
+						matriz[i][x] = '-';
+					}
+					
+					for(int i=N-segmento; i<N; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					columnasResueltas[x]=1;
+				}
+				
+					
+			}
+			
+			//PINTAR REGLA 5 EN COLUMNA
+			if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N-1)
+			{
+				
+				if( matriz[0][x] == '-')
+				{
+					for(int i=1; i< N; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					columnasResueltas[x]=1;
+				}
+				
+
+				if( matriz[N-1][x] == '-')
+				{
+					for(int i=0; i< N-1; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					columnasResueltas[x]=1;
+				}
+						
 			}
 			
 		}
@@ -308,7 +434,7 @@ public class main {
 		
 		//SE IMPRIME LA MATRIZ COMPLETA
 		
-		System.out.println();
+		System.out.println("");
 		
 		for(int i=0; i<dimFil; i++)
 		{	
