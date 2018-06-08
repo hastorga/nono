@@ -92,6 +92,7 @@ public class main {
 		}
 		
 		*/
+
 		
 		//CICLO PARA FILAS
 		
@@ -183,6 +184,35 @@ public class main {
 				}
 				
 					
+			}
+			
+			//PINTAR REGLA 4 EN FILA
+			if(filas.get(x).size()==2 )
+			{
+				
+				if( matriz[x][0] == '#' && matriz[x][M-1] == '#' )
+				{
+					int primerSegmento = filas.get(x).get(0);
+					int segundoSegmento = filas.get(x).get(1);
+					
+					for(int i=0; i< primerSegmento; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					
+					for(int i= M-1; i >= M-segundoSegmento; i--)
+					{
+						matriz[x][i] = '#';
+					}
+					
+					for(int i= primerSegmento; i < M-segundoSegmento; i++)
+					{
+						matriz[x][i] = '-';
+					}
+					
+					filasResueltas[x]=1;
+				}
+				
 			}
 			
 			//PINTAR REGLA 5 EN FILA
@@ -304,6 +334,37 @@ public class main {
 					
 			}
 			
+			//PINTAR REGLA 4 EN COLUMNA
+			if(columnas.get(x).size()==2 )
+			{
+				
+				if( matriz[0][x] == '#' && matriz[N-1][x] == '#' )
+				{
+					int primerSegmento = columnas.get(x).get(0);
+					int segundoSegmento = columnas.get(x).get(1);
+					
+					for(int i=0; i< primerSegmento; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					
+					for(int i= N-1; i >= N-segundoSegmento; i--)
+					{
+						matriz[i][x] = '#';
+					}
+					
+					for(int i= primerSegmento; i < N-segundoSegmento; i++)
+					{
+						matriz[i][x] = '-';
+					}
+					
+					columnasResueltas[x]=1;
+				}
+				
+			}
+			
+			
+			
 			//PINTAR REGLA 5 EN COLUMNA
 			if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N-1)
 			{
@@ -330,6 +391,8 @@ public class main {
 			}
 			
 		}
+		
+
 	
 		//IMPRIME MATRIZ
 		
