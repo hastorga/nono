@@ -7,34 +7,23 @@ public class main {
 
 	public static void main(String[] args) {
 	
-
+		Lectura archivo = new Lectura();
+		archivo.leer_ficheros();
+		
 		//Dimensiones Matriz
-		int N=5;
-		int M=5;
+		int N = archivo.getN();
+		int M = archivo.getM();
 		char matriz[][] = new char[N][M];
 		
-		
-		
-		Lectura leer_fichero = new Lectura();
-		System.out.println("lectura de fichero");
-		leer_fichero.leer_ficheros();
-		
 		//Array List de Filas
-		ArrayList<ArrayList<Integer>> filas = leer_fichero.get_Filas();
+		ArrayList<ArrayList<Integer>> filas = archivo.get_Filas();
 		
 		//Array List de Columnas
-		ArrayList<ArrayList<Integer>> columnas = leer_fichero.get_Columnas();
-	
+		ArrayList<ArrayList<Integer>> columnas = archivo.get_Columnas();
 		
-		
-		//ARREGLOS DE PRUEBA (Insertar en ArrayList de Filas o columnas)
-		int [] arrayF1 = {1,1,1};
-		int [] arrayF2 = {1,3};
-		int [] arrayF3 = {3,1};
-		int [] arrayF4 = {5};
-		int [] arrayF5 = {1,1,1};
+		int columnasResueltas[] = new int[M];
+		int filasResueltas[] = new int[N];
 
-		
 		//LLENA MATRIZ CON CARACTERES '*' (SIN PINTAR) 
 		
 		for(int i=0; i<N; i++)
@@ -43,21 +32,15 @@ public class main {
 			{
 				matriz[i][j]='*';
 			}
+			
 		}
 		
-		//IMPRIME MATRIZ
+		
+		//IMPRIME MATRIZ VACIA
 		
 		System.out.println("MATRIZ VACIA:");
 		
-		for(int i=0; i<N; i++)
-		{	
-			for(int j=0; j<M; j++)
-			{
-				System.out.print(" "+matriz[i][j]);
-			}
-			System.out.println();
-			
-		}
+		mostrarMatriz(N,M,matriz);
 		
 		
 		//SE IMPRIMEN ARRAY LIST DE FILAS
@@ -88,8 +71,30 @@ public class main {
 
 		}
 		
-		//CICLO PARA FILAS
+		/*
+		 * 
+		 * CICLO ITERATIVO A IMPLEMENTAR PRONTO:
+		 * 
+		 * El ciclo acaba cuando todas las filas y columnas están resueltas (Juego terminado)
+		 * o cuando no se puede avanzar a una siguiente iteracion (Falta de reglas para llegar a la solucion).
+		 * 
+		 * 
+		 * De esta manera se evita entrar en un loop infinito buscando la solucion.
+		 * 
 		
+		while( !nonoResuelto(filasResueltas,columnasResueltas) || sinAvance(rellenar parametros) )
+		{
+			int auxFilasResueltas[] = filasResueltas.clone();
+			int auxColumnasResueltas[] = columnasResueltas.clone();
+			
+			//CICLO DE FILAS
+			//CICLO DE COLUMNAS
+		}
+		
+		*/
+
+		
+		//CICLO PARA FILAS
 		
 		for(int x=0 ; x<filas.size() ; x++)
 		{
@@ -108,8 +113,11 @@ public class main {
 				{
 					matriz[x][i] = '#';
 				}
+				
+				filasResueltas[x]=1;
 					
 			}
+			
 			
 			//PINTAR REGLA 2 EN FILA
 			if(suma == (M-(filas.get(x).size()-1)))
@@ -136,9 +144,100 @@ public class main {
 					}
 					
 				}
-				
+				filasResueltas[x]=1;
 				
 			}
+			
+			//PINTAR REGLA 3 EN FILA	
+			if(filas.get(x).size()==1)
+			{
+
+				int segmento = filas.get(x).get(0);
+				
+				if( matriz[x][0] == '#')
+				{
+					for(int i=0; i<segmento; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					
+					for(int i=segmento; i< M; i++)
+					{
+						matriz[x][i] = '-';
+					}
+					
+					filasResueltas[x]=1;
+				}
+				
+				if( matriz[x][M-1] == '#')
+				{
+					for(int i=0; i< M-segmento; i++)
+					{
+						matriz[x][i] = '-';
+					}
+					
+					for(int i=M-segmento; i< M; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					filasResueltas[x]=1;
+				}
+				
+					
+			}
+			
+			//PINTAR REGLA 4 EN FILA
+			if(filas.get(x).size()==2 )
+			{
+				
+				if( matriz[x][0] == '#' && matriz[x][M-1] == '#' )
+				{
+					int primerSegmento = filas.get(x).get(0);
+					int segundoSegmento = filas.get(x).get(1);
+					
+					for(int i=0; i< primerSegmento; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					
+					for(int i= M-1; i >= M-segundoSegmento; i--)
+					{
+						matriz[x][i] = '#';
+					}
+					
+					for(int i= primerSegmento; i < M-segundoSegmento; i++)
+					{
+						matriz[x][i] = '-';
+					}
+					
+					filasResueltas[x]=1;
+				}
+				
+			}
+			
+			//PINTAR REGLA 5 EN FILA
+			if(filas.get(x).size()==1 && filas.get(x).get(0) == M-1)
+			{
+				if( matriz[x][0] == '-')
+				{
+					for(int i=1; i< M; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					filasResueltas[x]=1;
+				}
+				
+				if( matriz[x][M-1] == '-')
+				{
+					for(int i=0; i< M-1; i++)
+					{
+						matriz[x][i] = '#';
+					}
+					filasResueltas[x]=1;
+				}
+						
+			}
+			
 			
 		}
 	
@@ -163,6 +262,8 @@ public class main {
 				{
 					matriz[i][x] = '#';
 				}
+				
+				columnasResueltas[x]=1;
 					
 			}
 			
@@ -191,16 +292,128 @@ public class main {
 					}
 					
 				}
-				
+				columnasResueltas[x]=1;
 				
 			}
 			
+			//PINTAR REGLA 3 EN COLUMNA	
+			if(columnas.get(x).size()==1)
+			{
+
+				int segmento = columnas.get(x).get(0);
+				
+				if( matriz[0][x] == '#')
+				{
+					for(int i=0; i<segmento; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					
+					for(int i=segmento; i< N; i++)
+					{
+						matriz[i][x] = '-';
+					}
+					
+					columnasResueltas[x]=1;
+				}
+				
+				if( matriz[N-1][x] == '#')
+				{
+					for(int i=0; i< N-segmento; i++)
+					{
+						matriz[i][x] = '-';
+					}
+					
+					for(int i=N-segmento; i<N; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					columnasResueltas[x]=1;
+				}
+				
+					
+			}
+			
+			//PINTAR REGLA 4 EN COLUMNA
+			if(columnas.get(x).size()==2 )
+			{
+				
+				if( matriz[0][x] == '#' && matriz[N-1][x] == '#' )
+				{
+					int primerSegmento = columnas.get(x).get(0);
+					int segundoSegmento = columnas.get(x).get(1);
+					
+					for(int i=0; i< primerSegmento; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					
+					for(int i= N-1; i >= N-segundoSegmento; i--)
+					{
+						matriz[i][x] = '#';
+					}
+					
+					for(int i= primerSegmento; i < N-segundoSegmento; i++)
+					{
+						matriz[i][x] = '-';
+					}
+					
+					columnasResueltas[x]=1;
+				}
+				
+			}
+			
+			
+			
+			//PINTAR REGLA 5 EN COLUMNA
+			if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N-1)
+			{
+				
+				if( matriz[0][x] == '-')
+				{
+					for(int i=1; i< N; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					columnasResueltas[x]=1;
+				}
+				
+
+				if( matriz[N-1][x] == '-')
+				{
+					for(int i=0; i< N-1; i++)
+					{
+						matriz[i][x] = '#';
+					}
+					columnasResueltas[x]=1;
+				}
+						
+			}
+			
 		}
+		
+
 	
 		//IMPRIME MATRIZ
 		
 		System.out.println("\n\nMATRIZ PINTADA:");
 		
+		mostrarMatriz(N,M,matriz);
+		
+		
+		if(nonoResuelto(filasResueltas, columnasResueltas))
+			System.out.println("\n\nJUEGO TERMINADO");
+		else
+			System.out.println("\n\nJUEGO INCOMPLETO");
+		
+		mostrarMatrizCompleta(N,M,matriz,columnas,filas);
+	
+	}
+	
+	
+	
+	public static void mostrarMatriz(int N, int M , char matriz[][])
+	{
 		for(int i=0; i<N; i++)
 		{	
 			for(int j=0; j<M; j++)
@@ -210,7 +423,135 @@ public class main {
 			System.out.println();
 			
 		}
-	
+		
 	}
+	
+	
+	public static void mostrarMatrizCompleta(int N, int M , char matriz[][], ArrayList<ArrayList<Integer>> columnas, ArrayList<ArrayList<Integer>> filas)
+	{
+		
+		//DIMENSIONES DE MATRIZ COMPLETA
+		int dimCol;
+		int dimFil;
+		
+		int indCol = 0;
+		int indFil = 0;
+		
+		
+        //SE CALCULA DIMENSION MAXIMA PARA COLUMNAS DE MATRIZ COMPLETA
+		if(M%2==0)
+			dimCol = M+(M/2);
+		else
+			dimCol = M + ((M+1)/2);
+		
+		//SE CALCULA DIMENSION MAXIMA PARA FILAS DE MATRIZ COMPLETA
+		if(N%2==0)
+			dimFil = N+(N/2);
+		else
+			dimFil = N + ((N+1)/2);
+		
+		
+		//SE INICIALIZA LA MATRIZ COMPLETA
+		char matrizCompleta[][] = new char[dimFil][dimCol];
+		
+		
+		//SE INICIALIZAN TODAS LAS POSICIONES DE LA MATRIZ CON VACIO
+		for(int i=0; i<dimFil; i++)
+		{	
+			for(int j=0; j<dimCol; j++)
+			{
+				matrizCompleta[i][j] = ' ';
+			}
+			
+		}
+		
+		//SE AGREGAN LOS SEGMENTOS A PINTAR PARA CADA COLUMNA
+		for(int i=(dimCol-M) ; i<dimCol; i++)
+		{	
+			for(int j=0 ; j<columnas.get(indCol).size(); j++)
+			{
+				String segmento = String.valueOf(columnas.get(indCol).get(j)); 
+				matrizCompleta[j][i] = segmento.charAt(0);
+					
+			}	
+			indCol++;
+		}
+		
+		//SE AGREGAN LOS SEGMENTOS A PINTAR PARA CADA FILA
+		for(int i=(dimFil-N) ; i<dimFil; i++)
+		{	
+			for(int j=0 ; j<filas.get(indFil).size(); j++)
+			{
+				String segmento = String.valueOf(filas.get(indFil).get(j)); 
+				matrizCompleta[i][j] = segmento.charAt(0);
+					
+			}	
+			indFil++;
+		}
+		
+		//SE AGREGAN LOS VALORES DE LA MATRIZ QUE CONTIENE EL JUEGO
+		for(int i=0; i<N; i++)	
+			for(int j=0; j<M; j++)
+				matrizCompleta[i+(dimFil-N)][j+(dimCol-M)] = matriz[i][j];
+
+		
+		//SE IMPRIME LA MATRIZ COMPLETA
+		
+		System.out.println("");
+		
+		for(int i=0; i<dimFil; i++)
+		{	
+			for(int j=0; j<dimCol; j++)
+			{
+				System.out.print(" "+matrizCompleta[i][j]);
+			}
+			System.out.println();
+		
+		}
+			
+	}
+	
+	public static boolean nonoResuelto(int[] filasResueltas, int[] columnasResueltas)
+	{
+
+		for(int i=0; i<columnasResueltas.length; i++)
+		{
+			if(columnasResueltas[i]==0)
+				return false;
+		}
+		
+		for(int i=0; i<filasResueltas.length; i++)
+		{
+			if(filasResueltas[i]==0)
+				return false;
+		}
+		
+		return true;
+	}
+	
+	public static boolean sinAvance(int[] filasResueltas, int[] columnasResueltas, int[] auxColResueltas, int[] auxFilResueltas)
+	{
+		boolean filasIguales = true;
+		boolean columnasIguales = true;
+
+		for(int i=0; i<columnasResueltas.length; i++)
+		{
+			if(columnasResueltas[i] != auxColResueltas[i])
+				columnasIguales = false;
+		}
+		
+		for(int i=0; i<filasResueltas.length; i++)
+		{
+			if(filasResueltas[i] != auxFilResueltas[i])
+				filasIguales = false;
+		}
+		
+		//NO HAY AVANCE
+		if( filasIguales && columnasIguales)
+			return true;
+		else
+			return false;
+	}
+
 
 }

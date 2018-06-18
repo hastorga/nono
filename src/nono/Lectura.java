@@ -89,19 +89,7 @@ public class Lectura {
 		          e2.printStackTrace();
 		       }
 		    }
-		    System.out.println("Vector columnas");
-		    
-		    for(int k = 0; k < columnas.size() ;k++)
-		    {
-		    	System.out.println(columnas.get(k));
-		    }
-		    
-		    System.out.println("Vector filas");
-		    
-		    for(int k = 0; k < filas.size() ;k++)
-		    {
-		    	System.out.println(filas.get(k));
-		    }
+
 		    
 		}
 	
@@ -114,5 +102,12 @@ public class Lectura {
 		return  filas;
 	}
 	
+	public int getN() {
+		return  N;
+	}
+	
+	public int getM() {
+		return  M;
+	}
 }
 
