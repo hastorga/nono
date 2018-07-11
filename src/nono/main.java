@@ -562,10 +562,6 @@ public class main {
 							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,7);
 						}
 						
-						
-
-		
-						
 					}
 
 					
@@ -601,11 +597,7 @@ public class main {
 		System.out.print("\n         FILAS Y COLUMNAS              \n");
 		System.out.print("\n***************************************\n");
 		
-		for(int i=0 ; i<N ; i++)
-			System.out.println("\n\t(Fila: "+ (i+1) + " -> " + filasResueltas[i]+")");
-		
-		for(int i=0 ; i<N ; i++)
-			System.out.println("\n\t(Columna: "+ (i+1) + " -> " + columnasResueltas[i]+")");
+		mostrarResueltas(filasResueltas, columnasResueltas);
 		
 		
 		
@@ -733,13 +725,18 @@ public class main {
 		}
 		
 		return true;
-		/*
-		for(int i=0 ; i<N ; i++)
+
+	}
+	
+	public static void mostrarResueltas(boolean[] filasResueltas, boolean[] columnasResueltas)
+	{
+
+		for(int i=0 ; i<filasResueltas.length ; i++)
 			System.out.println("\n(Fila: "+ (i+1) + " -> " + filasResueltas[i]+")");
 		
-		for(int i=0 ; i<N ; i++)
+		for(int i=0 ; i<columnasResueltas.length ; i++)
 			System.out.println("\n(Columna: "+ (i+1) + " -> " + columnasResueltas[i]+")");
-		*/
+		
 	}
 	
 	public static boolean sinAvance(int[] filasResueltas, int[] columnasResueltas, int[] auxColResueltas, int[] auxFilResueltas)
