@@ -52,6 +52,7 @@ public class main {
 		
 		while( nonoResuelto(filasResueltas,columnasResueltas) || cont < 4 )
 		{
+			System.out.println("\n(WHILE: "+ cont + ")");
 			
 			//CICLO PARA FILAS
 			
@@ -70,7 +71,7 @@ public class main {
 					//PINTAR REGLA 1 EN FILA	
 					if(filas.get(x).size()==1 && filas.get(x).get(0) == M)
 					{
-						for(int i=0; i<filas.get(x).size(); i++)
+						for(int i=0; i<filas.get(x).get(0); i++)
 						{
 							matriz[x][i] = '#';
 						}
@@ -244,7 +245,7 @@ public class main {
 					if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N)
 					{
 						
-						for(int i=0; i<columnas.get(x).size(); i++)
+						for(int i=0; i<columnas.get(x).get(0); i++)
 						{
 							matriz[i][x] = '#';
 						}
@@ -255,6 +256,8 @@ public class main {
 						System.out.println("\n(Regla 1 - Columna: "+ (x+1) + ")");
 							
 					}
+					
+					
 					
 					//PINTAR REGLA 2 EN COLUMNA
 					if(suma == (N-(columnas.get(x).size()-1)))
