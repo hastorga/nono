@@ -67,20 +67,39 @@ public class main {
 					{
 						suma = suma + filas.get(x).get(i);
 					}
-					
-					//PINTAR REGLA 1 EN FILA	
-					if(filas.get(x).size()==1 && filas.get(x).get(0) == M)
+						
+					if(filas.get(x).size()==1)
 					{
-						for(int i=0; i<filas.get(x).get(0); i++)
+						//PINTAR REGLA 1 EN FILA
+						if(filas.get(x).get(0) == M)
 						{
-							matriz[x][i] = '#';
+							for(int i=0; i<filas.get(x).get(0); i++)
+							{
+								matriz[x][i] = '#';
+							}
+							
+							filasResueltas[x]=1;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion);
+							System.out.println("\n(Regla 1 - Fila: "+ (x+1) + ")");
+							
 						}
 						
-						filasResueltas[x]=1;
-						iteracion++;
-						mostrarMatriz(N,M,matriz,iteracion);
-						System.out.println("\n(Regla 1 - Fila: "+ (x+1) + ")");
-						
+						//PINTAR REGLA 6 EN FILA
+						if(filas.get(x).get(0) == 0)
+						{
+							for(int i=0; i<M; i++)
+							{
+								matriz[x][i] = '-';
+							}
+							
+							filasResueltas[x]=1;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion);
+							System.out.println("\n(Regla 6 - Fila: "+ (x+1) + ")");
+							
+						}
+							
 							
 					}
 					
@@ -241,19 +260,38 @@ public class main {
 						suma = suma + columnas.get(x).get(i);
 					}
 					
-					//PINTAR REGLA 1 EN COLUMNA	
-					if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N)
+					if(columnas.get(x).size()==1)
 					{
-						
-						for(int i=0; i<columnas.get(x).get(0); i++)
+						//PINTAR REGLA 1 EN COLUMNA	
+						if(columnas.get(x).get(0) == N)
 						{
-							matriz[i][x] = '#';
+							for(int i=0; i<columnas.get(x).get(0); i++)
+							{
+								matriz[i][x] = '#';
+							}
+							
+							columnasResueltas[x]=1;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion);
+							System.out.println("\n(Regla 1 - Columna: "+ (x+1) + ")");
+									
 						}
 						
-						columnasResueltas[x]=1;
-						iteracion++;
-						mostrarMatriz(N,M,matriz,iteracion);
-						System.out.println("\n(Regla 1 - Columna: "+ (x+1) + ")");
+						//PINTAR REGLA 6 EN COLUMNA	
+						if(columnas.get(x).get(0) == 0)
+						{
+							for(int i=0; i<N; i++)
+							{
+								matriz[i][x] = '-';
+							}
+							
+							columnasResueltas[x]=1;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion);
+							System.out.println("\n(Regla 6 - Columna: "+ (x+1) + ")");
+									
+						}
+						
 							
 					}
 					
