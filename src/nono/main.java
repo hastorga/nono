@@ -26,7 +26,16 @@ public class main {
 		
 		int iteracion = 0;
 		int cont = 0;
-
+		
+		//Se inicializa la matriz
+		for(int i=0; i<N; i++)
+		{	
+			for(int j=0; j<M; j++)
+			{
+				matriz[i][j] = ' ';
+			}
+			
+		}
 		
 		/*
 		 * 
@@ -52,7 +61,10 @@ public class main {
 		
 		while( nonoResuelto(filasResueltas,columnasResueltas) || cont < 4 )
 		{
-			System.out.println("\n(WHILE: "+ cont + ")");
+			
+			System.out.println("\n**********************************");
+			System.out.println("\n\t(WHILE: "+ cont + ")");
+			System.out.println("\n**********************************");
 			
 			//CICLO PARA FILAS
 			
@@ -298,7 +310,7 @@ public class main {
 					
 					
 					//PINTAR REGLA 2 EN COLUMNA
-					if(suma == (N-(columnas.get(x).size()-1)))
+					if(suma == (N-(columnas.get(x).size()-1)) && columnasResueltas[x] == 0)
 					{
 						
 						int indiceFila = 0;
@@ -331,7 +343,7 @@ public class main {
 					}
 					
 					//PINTAR REGLA 3 EN COLUMNA	
-					if(columnas.get(x).size()==1)
+					if(columnas.get(x).size()==1 && columnasResueltas[x] == 0)
 					{
 
 						int segmento = columnas.get(x).get(0);
@@ -375,7 +387,7 @@ public class main {
 					}
 					
 					//PINTAR REGLA 4 EN COLUMNA
-					if(columnas.get(x).size()==2 )
+					if(columnas.get(x).size()==2 && columnasResueltas[x] == 0)
 					{
 						
 						if( matriz[0][x] == '#' && matriz[N-1][x] == '#' )
@@ -409,7 +421,7 @@ public class main {
 					
 					
 					//PINTAR REGLA 5 EN COLUMNA
-					if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N-1)
+					if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N-1 && columnasResueltas[x] == 0)
 					{
 						
 						if( matriz[0][x] == '-')
@@ -439,9 +451,66 @@ public class main {
 								
 					}
 					
-				}
+					//MARCAR COLUMNA COMO RESUELTA SI LA CANTIDAD DE POSICIONES PINTADAS ES
+					//IGUAL A LA CANTIDAD DE POSICIONES A PINTAR
+					
+					
+					if(columnasResueltas[x] == 0)
+					{
+						
+						boolean posicionesVacias = false;
+						int sumaPintadosEnColumna = 0;
+						
+						for(int i=0; i< N; i++)
+						{
+							//Determina si existen posiciones disponibles
+							if( matriz[i][x] != ' ')
+								posicionesVacias = true;
+							
+							//Suma la cantidad de posiciones pintadas
+							if( matriz[i][x] == '#')
+								sumaPintadosEnColumna++;
+						}
+
+						
+						//PINTAR REGLA 7 EN COLUMNA
+						
+						//Determina si la suma de las posiciones pintadas en la columna es
+						//igual a la suma de posiciones a pintar
+						if(sumaPintadosEnColumna == suma)
+						{
+							//Las posiciones 'disponibles' se actualizan a 'no disponibles'
+							for(int i=0; i< N; i++)
+							{
+								if( matriz[i][x] == ' ' )
+									matriz[i][x] = '-';	
+							}
+							
+							columnasResueltas[x]=1;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion);
+							System.out.println("\n(Regla 7 - Columna: "+ (x+1) + ")");
+						}
+						
+						
+						//PINTAR REGLA 8 EN COLUMNA
+						
+						if(posicionesVacias == false)
+						{
+							columnasResueltas[x]=1;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion);
+							System.out.println("\n(Regla 8 - Columna: "+ (x+1) + ")");
+							
+						}
+		
+						
+					}
+
+					
+				}//Fin - For de columnas
 				
-			}
+			}//Fin - While
 			
 			cont++;
 					
@@ -461,11 +530,23 @@ public class main {
 		System.out.print("\n***************************************\n");
 		mostrarMatrizCompleta(N,M,matriz,columnas,filas);
 		
+		System.out.print("\n\n***************************************");
+		System.out.print("\n         FILAS Y COLUMNAS              \n");
+		System.out.print("\n***************************************\n");
+		
+		for(int i=0 ; i<N ; i++)
+			System.out.println("\n\t(Fila: "+ (i+1) + " -> " + filasResueltas[i]+")");
+		
+		for(int i=0 ; i<N ; i++)
+			System.out.println("\n\t(Columna: "+ (i+1) + " -> " + columnasResueltas[i]+")");
+		
+		
+		
 	}
 	
 	
 	
-	public static void mostrarMatriz(int N, int M , char matriz[][], int iteracion)
+	public static void mostrarMatriz(int N, int M , char matriz[][], int iteracion )
 	{
 		System.out.print("\n-----------------------------------");
 		System.out.print("\n\tIteracion: "+ iteracion + "\n\n");
@@ -481,6 +562,26 @@ public class main {
 		
 		
 	}
+	
+	/*
+	public static void mostrarMatriz2(int N, int M , char matriz[][], int iteracion, int regla )
+	{
+		System.out.print("\n-----------------------------------");
+		System.out.print("\n\tIteracion: "+ iteracion + "\n\n");
+		for(int i=0; i<N; i++)
+		{	
+			for(int j=0; j<M; j++)
+			{
+				System.out.print(" "+matriz[i][j]);
+			}
+			System.out.println();
+			
+		}
+		System.out.print("\n\t--Regla: "+ regla + "\n\n");
+		
+		
+	}
+	*/
 	
 	
 	public static void mostrarMatrizCompleta(int N, int M , char matriz[][], ArrayList<ArrayList<Integer>> columnas, ArrayList<ArrayList<Integer>> filas)
@@ -604,6 +705,8 @@ public class main {
 		else
 			return false;
 	}
+	
+
 	
 
 
