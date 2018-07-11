@@ -27,6 +27,7 @@ public class main {
 		
 		int iteracion = 0;
 		int cont = 0;
+		String tipo;
 		
 		
 		//Se inicializa la matriz con el caracter ' ' (Posición vacia)
@@ -76,9 +77,12 @@ public class main {
 			
 			//CICLO PARA FILAS
 			
+			tipo = "fila";
+			
 			for(int x=0 ; x<filas.size() ; x++)
 			{
 				int suma = 0;
+				int indice = x;
 				
 				
 				if(filasResueltas[x]==false)
@@ -101,8 +105,7 @@ public class main {
 							
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 1 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,1);
 							
 						}
 						
@@ -116,8 +119,7 @@ public class main {
 							
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 6 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,6);
 							
 						}
 							
@@ -152,8 +154,7 @@ public class main {
 						}
 						filasResueltas[x]=true;
 						iteracion++;
-						mostrarMatriz(N,M,matriz,iteracion);
-						System.out.println("\n(Regla 2 - Fila: "+ (x+1) + ")");
+						mostrarMatriz(N,M,matriz,iteracion,indice,tipo,2);
 						
 					}
 					
@@ -177,8 +178,7 @@ public class main {
 							
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 3 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
 						}
 						
 						if( matriz[x][M-1] == '#')
@@ -194,8 +194,7 @@ public class main {
 							}
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 3 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
 						}
 						
 							
@@ -227,7 +226,7 @@ public class main {
 							
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,4);
 							System.out.println("\n(Regla 4 - Fila: "+ (x+1) + ")");
 						}
 						
@@ -244,8 +243,7 @@ public class main {
 							}
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 5 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
 						}
 						
 						if( matriz[x][M-1] == '-')
@@ -256,8 +254,7 @@ public class main {
 							}
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 5 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
 						}
 								
 					}
@@ -288,18 +285,21 @@ public class main {
 								sumaPintadosEnFila++;
 						}
 						
-						//System.out.println(posicionesVacias);
+						//PINTAR REGLA 8 EN FILA
 						
-						//System.out.println("\n(Suma - Fila: "+ (x+1) + ") = "+sumaPintadosEnFila);
-						//System.out.println("\n\t(Segmentos - Fila: "+ (x+1) + ") = "+suma);
-						//System.out.println("\n\t(Vacios - Fila: "+ (x+1) + ") = "+vacias);
-
+						if(posicionesVacias == false )
+						{
+							filasResueltas[x]=true;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,8);
+							
+						}
 						
 						//PINTAR REGLA 7 EN FILA
 						
 						//Determina si la suma de las posiciones pintadas en la columna es
 						//igual a la suma de posiciones a pintar
-						if(sumaPintadosEnFila == suma)
+						if(sumaPintadosEnFila == suma && filasResueltas[x]==false)
 						{
 							//Las posiciones 'disponibles' se actualizan a 'no disponibles'
 							for(int i=0; i< M; i++)
@@ -310,21 +310,11 @@ public class main {
 							
 							filasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 7 - Fila: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,7);
 						}
 	
 						
-						//PINTAR REGLA 8 EN FILA
-						
-						if(posicionesVacias == false)
-						{
-							filasResueltas[x]=true;
-							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 8 - Fila: "+ (x+1) + ")");
-							
-						}
+
 
 						
 					}
@@ -337,9 +327,13 @@ public class main {
 			
 			//CICLO PARA COLUMNAS
 			
+			tipo = "columna";
+			
 			for(int x=0 ; x<columnas.size() ; x++)
 			{
 				int suma = 0;
+				int indice = x;
+				 
 				
 				if(columnasResueltas[x]==false)
 				{
@@ -361,8 +355,7 @@ public class main {
 							
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 1 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,1);
 									
 						}
 						
@@ -376,9 +369,7 @@ public class main {
 							
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 6 - Columna: "+ (x+1) + ")");
-									
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,6);								
 						}
 						
 							
@@ -413,10 +404,8 @@ public class main {
 						}
 						columnasResueltas[x]=true;
 						iteracion++;
-						mostrarMatriz(N,M,matriz,iteracion); 
-						System.out.println("\n(Regla 2 - Columna: "+ (x+1) + ")");
-						
-						
+						mostrarMatriz(N,M,matriz,iteracion,indice,tipo,2); 
+											
 					}
 					
 					//PINTAR REGLA 3 EN COLUMNA	
@@ -439,8 +428,7 @@ public class main {
 							
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 3 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
 						}
 						
 						if( matriz[N-1][x] == '#')
@@ -456,8 +444,7 @@ public class main {
 							}
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 3 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
 						}
 						
 							
@@ -489,8 +476,7 @@ public class main {
 							
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 4 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,4);
 						}
 						
 					}
@@ -509,8 +495,7 @@ public class main {
 							}
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 5 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
 						}
 						
 
@@ -522,8 +507,7 @@ public class main {
 							}
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 5 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
 						}
 								
 					}
@@ -548,13 +532,23 @@ public class main {
 							if( matriz[i][x] == '#')
 								sumaPintadosEnColumna++;
 						}
+						
+						//PINTAR REGLA 8 EN COLUMNA
+						
+						if(posicionesVacias == false)
+						{
+							columnasResueltas[x]=true;
+							iteracion++;
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,8);
+							
+						}
 
 						
 						//PINTAR REGLA 7 EN COLUMNA
 						
 						//Determina si la suma de las posiciones pintadas en la columna es
 						//igual a la suma de posiciones a pintar
-						if(sumaPintadosEnColumna == suma)
+						if(sumaPintadosEnColumna == suma && columnasResueltas[x]==false)
 						{
 							//Las posiciones 'disponibles' se actualizan a 'no disponibles'
 							for(int i=0; i< N; i++)
@@ -565,21 +559,11 @@ public class main {
 							
 							columnasResueltas[x]=true;
 							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 7 - Columna: "+ (x+1) + ")");
+							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,7);
 						}
 						
 						
-						//PINTAR REGLA 8 EN COLUMNA
-						
-						if(posicionesVacias == false)
-						{
-							columnasResueltas[x]=true;
-							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion);
-							System.out.println("\n(Regla 8 - Columna: "+ (x+1) + ")");
-							
-						}
+
 		
 						
 					}
@@ -629,8 +613,14 @@ public class main {
 	
 	
 	
-	public static void mostrarMatriz(int N, int M , char matriz[][], int iteracion )
+
+	
+	
+	public static void mostrarMatriz(int N, int M , char matriz[][], int iteracion, int indice, String tipo,  int regla )
 	{
+		String columna = "columna";
+		String fila = "fila";
+		
 		System.out.print("\n-----------------------------------");
 		System.out.print("\n\tIteracion: "+ iteracion + "\n\n");
 		for(int i=0; i<N; i++)
@@ -643,28 +633,15 @@ public class main {
 			
 		}
 		
+	
+		if(columna.equals(tipo))
+			System.out.println("\n(Regla " + regla + " - Columna: "+ (indice+1) + ")");
+		
+		if(fila.equals(tipo))
+			System.out.println("\n(Regla " + regla + " - Fila: "+ (indice+1) + ")");
 		
 	}
 	
-	/*
-	public static void mostrarMatriz2(int N, int M , char matriz[][], int iteracion, int regla )
-	{
-		System.out.print("\n-----------------------------------");
-		System.out.print("\n\tIteracion: "+ iteracion + "\n\n");
-		for(int i=0; i<N; i++)
-		{	
-			for(int j=0; j<M; j++)
-			{
-				System.out.print(" "+matriz[i][j]);
-			}
-			System.out.println();
-			
-		}
-		System.out.print("\n\t--Regla: "+ regla + "\n\n");
-		
-		
-	}
-	*/
 	
 	
 	public static void mostrarMatrizCompleta(int N, int M , char matriz[][], ArrayList<ArrayList<Integer>> columnas, ArrayList<ArrayList<Integer>> filas)
