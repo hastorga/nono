@@ -133,9 +133,7 @@ public class main {
 						disponiblesFinal=true;
 	
 				}
-				
-				
-				
+							
 				if(filasResueltas[x]==false)
 				{
 					
@@ -500,6 +498,100 @@ public class main {
 							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,6);								
 						}
 						
+						//PINTAR REGLA 3 EN COLUMNA	
+						if(columnasResueltas[x]==false)
+						{
+							
+							if( matriz[0][x] == '#')
+							{
+								for(int i=0; i<segmento; i++)
+								{
+									matriz[i][x] = '#';
+								}
+								
+								for(int i=segmento; i< N; i++)
+								{
+									matriz[i][x] = '-';
+								}
+								
+								columnasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
+							}
+							
+							if( matriz[N-1][x] == '#')
+							{
+								for(int i=0; i< N-segmento; i++)
+								{
+									matriz[i][x] = '-';
+								}
+								
+								for(int i=N-segmento; i<N; i++)
+								{
+									matriz[i][x] = '#';
+								}
+								columnasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
+							}
+							
+								
+						}
+						
+						//PINTAR REGLA 5 EN COLUMNA
+						if(columnas.get(x).get(0) == N-1 && columnasResueltas[x]==false)
+						{
+							
+							if( matriz[0][x] == '-')
+							{
+								for(int i=1; i< N; i++)
+								{
+									matriz[i][x] = '#';
+								}
+								columnasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
+							}
+							
+
+							if( matriz[N-1][x] == '-')
+							{
+								for(int i=0; i< N-1; i++)
+								{
+									matriz[i][x] = '#';
+								}
+								columnasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
+							}
+									
+						}
+						
+						//PINTAR REGLA 9 EN COLUMNA
+						if(posPrimerPintado > -1)
+						{
+							if(disponiblesInicio == false && columnasResueltas[x] == false)
+							{
+								//Se pinta el segmento completo a partir de la primera posición pintada
+								for(int i=posPrimerPintado; i< posPrimerPintado + segmento; i++)
+								{
+									matriz[i][x] = '#';
+								}
+								
+								//Se actualizan las posiciones (posteriores al segmento) de 'disponibles' a 'no disponibles' 
+								for(int i=posPrimerPintado+segmento; i<N; i++)
+								{	
+									if( matriz[i][x] == ' ' )
+										matriz[i][x] = '-';	
+	
+								}	
+								
+								columnasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,9);
+							}
+						}
+						
 							
 					}
 					
@@ -535,45 +627,7 @@ public class main {
 											
 					}
 					
-					//PINTAR REGLA 3 EN COLUMNA	
-					if(columnas.get(x).size()==1 && columnasResueltas[x]==false)
-					{
-						
-						if( matriz[0][x] == '#')
-						{
-							for(int i=0; i<segmento; i++)
-							{
-								matriz[i][x] = '#';
-							}
-							
-							for(int i=segmento; i< N; i++)
-							{
-								matriz[i][x] = '-';
-							}
-							
-							columnasResueltas[x]=true;
-							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
-						}
-						
-						if( matriz[N-1][x] == '#')
-						{
-							for(int i=0; i< N-segmento; i++)
-							{
-								matriz[i][x] = '-';
-							}
-							
-							for(int i=N-segmento; i<N; i++)
-							{
-								matriz[i][x] = '#';
-							}
-							columnasResueltas[x]=true;
-							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,3);
-						}
-						
-							
-					}
+
 					
 					//PINTAR REGLA 4 EN COLUMNA
 					if(columnas.get(x).size()==2 && columnasResueltas[x]==false)
@@ -606,36 +660,6 @@ public class main {
 						
 					}
 					
-					
-					
-					//PINTAR REGLA 5 EN COLUMNA
-					if(columnas.get(x).size()==1 && columnas.get(x).get(0) == N-1 && columnasResueltas[x]==false)
-					{
-						
-						if( matriz[0][x] == '-')
-						{
-							for(int i=1; i< N; i++)
-							{
-								matriz[i][x] = '#';
-							}
-							columnasResueltas[x]=true;
-							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
-						}
-						
-
-						if( matriz[N-1][x] == '-')
-						{
-							for(int i=0; i< N-1; i++)
-							{
-								matriz[i][x] = '#';
-							}
-							columnasResueltas[x]=true;
-							iteracion++;
-							mostrarMatriz(N,M,matriz,iteracion,indice,tipo,5);
-						}
-								
-					}
 					
 					//MARCAR COLUMNA COMO RESUELTA SI LA CANTIDAD DE POSICIONES PINTADAS ES
 					//IGUAL A LA CANTIDAD DE POSICIONES A PINTAR
