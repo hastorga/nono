@@ -27,11 +27,15 @@ public class main {
 		boolean auxFilasResueltas[] = new boolean[N];	
 		boolean auxColumnasResueltas[] = new boolean[N];
 		
+		//Contadores
 		int iteracion = 0;
 		int cont = 0;
+		
+		//Tipo: "fila" || "columna"
 		String tipo;
 		
-		
+		boolean sinAvance = false;
+
 		//Se inicializa la matriz con el caracter ' ' (Posiciï¿½n disponible)
 		for(int i=0; i<N; i++)
 		{	
@@ -41,43 +45,23 @@ public class main {
 			}
 			
 		}
-		
-		/*
-		 * 
-		 * CICLO ITERATIVO A IMPLEMENTAR PRONTO:
-		 * 
-		 * El ciclo acaba cuando todas las filas y columnas estï¿½n resueltas (Juego terminado)
-		 * o cuando no se puede avanzar a una siguiente iteracion (Falta de reglas para llegar a la solucion).
-		 * 
-		 * 
-		 * De esta manera se evita entrar en un loop infinito buscando la solucion.
-		 * 
-		
-		while( !nonoResuelto(filasResueltas,columnasResueltas) || sinAvance(rellenar parametros) )
-		{
-			int auxFilasResueltas[] = filasResueltas.clone();
-			int auxColumnasResueltas[] = columnasResueltas.clone();
-			
-			//CICLO DE FILAS
-			//CICLO DE COLUMNAS
-		}
-		
-		*/
-		
 	
-		
-		//!nonoResuelto(filasResueltas,columnasResueltas) ||
-		while( !nonoResuelto(filasResueltas, columnasResueltas) || sinAvance(filasResueltas, columnasResueltas, auxFilasResueltas, auxColumnasResueltas) )
+		//CICLO DE REVISION
+		while( sinAvance==false)
 		{
+			
+			/*
+			System.out.println("\n************************************************************************");
+		    System.out.println("\n\t(WHILE: "+ cont + ") - Juego terminado?: " + nonoResuelto(filasResueltas,columnasResueltas));
+		    System.out.println("\n************************************************************************");
+			
+			System.out.println("\n\tSE COPIAN ARRAYS");
+		
+			*/
+			
 			auxFilasResueltas = filasResueltas.clone();
 		    auxColumnasResueltas = columnasResueltas.clone();
 			
-			System.out.println("\n**********************************");
-			System.out.println("\nJuego terminado?: " + nonoResuelto(filasResueltas,columnasResueltas));
-			
-			System.out.println("\n**********************************");
-			System.out.println("\n\t(WHILE: "+ cont + ")");
-			System.out.println("\n**********************************");
 			
 			/**--------------------------------CICLO DE FILAS--------------------------------*/
 			
@@ -268,6 +252,7 @@ public class main {
 								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,9);
 							}
 						}
+					
 
 					}
 					
@@ -720,7 +705,16 @@ public class main {
 				
 			}//Fin - For de columnas
 			
+			
+		    
+		    sinAvance = sinAvance(filasResueltas, columnasResueltas, auxFilasResueltas, auxColumnasResueltas);
+		    
+		    //System.out.println("\n\t\t[sinAvance while] : " + sinAvance);
+		    //System.out.println("\n\t\t[nonoResuelto while] : " + nonoResuelto);
+			
 			cont++;
+			
+			
 
 		}//Fin - While
         
@@ -885,38 +879,24 @@ public class main {
 		boolean filasIguales = true;
 		boolean columnasIguales = true;
 
-		for(int i=0; i<columnasResueltas.length; i++)
-		{
-			if(columnasResueltas[i] != auxFilasResueltas[i])
-				columnasIguales = false;
-		}
-		System.out.println("-----------AVANCE -----------------");
+		/*
+		System.out.println("\t-----------AVANCE -----------------");
 		
-		System.out.println("\nAuxFilas");
+		
 		for (int i=0; i<auxFilasResueltas.length; i++)
 		{
-			System.out.println("***"+auxFilasResueltas[i]);
+			System.out.println("\tFILAS:    AUXILIAR[" +i+"]: "+auxFilasResueltas[i]+" <--->  FILAS["+i+"]: " + filasResueltas[i]);
 		}
 		
-		System.out.println("\nFilas");
-		for (int i=0; i<filasResueltas.length; i++)
-		{
-			System.out.println("***"+filasResueltas[i]);
-		}
-		
-		System.out.println("\nAuxColumnas:");
+		System.out.println("\n");
+
 		for (int i=0; i<auxColumnasResueltas.length; i++)
 		{
-			System.out.println("***"+auxColumnasResueltas[i]);
+			System.out.println("\tCOLUMNAS:    AUXILIAR[" +i+"]: "+auxColumnasResueltas[i]+" <--->  FILAS["+i+"]: " + columnasResueltas[i]);
 		}
+		*/
 		
-		System.out.println("\nColumnas:");
-		for (int i=0; i<columnasResueltas.length; i++)
-		{
-			System.out.println("***"+columnasResueltas[i]);
-		}
-		
-		// Comprobación si son iguales
+		//Se comprueba si hay cambios de los arrays con respecto a la revision anterior
 		for(int i=0; i<filasResueltas.length; i++)
 		{
 			if(filasResueltas[i] != auxFilasResueltas[i])
@@ -927,14 +907,19 @@ public class main {
 			if(columnasResueltas[i] != auxColumnasResueltas[i])
 				columnasIguales = false;
 		}
+
 		
-		
-		//NO HAY AVANCE
+		//Se determina si se puede avanzar a una siguiente revision de filas y columnas
 		if( filasIguales && columnasIguales)
+		{
+			System.out.println("\n\t\t[SIN Avance para la siguiente revision]");
+			//System.out.println("\t-----------FIN AVANCE -----------------");
 			return true;
+		}
 		else
 		{
-			System.out.println("Hay Avance");
+			System.out.println("\n\t\t[HAY Avance para la siguiente revision]");
+			//System.out.println("\t-----------FIN AVANCE -----------------");
 			return false;
 		}
 			
