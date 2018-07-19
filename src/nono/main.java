@@ -252,6 +252,32 @@ public class main {
 								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,9);
 							}
 						}
+						
+						
+						/**PINTAR REGLA 10 EN FILA*/
+						if(posUltimoPintado < M)
+						{
+							if(disponiblesFinal == false && filasResueltas[x] == false)
+							{
+								//Se pinta el segmento completo a partir de la ultima posicion pintada 
+								for(int i=posUltimoPintado; i > posUltimoPintado - segmento; i--)
+								{
+									matriz[x][i] = '#';
+								}
+								
+								//Se actualizan las posiciones (anteriores al segmento) de 'disponibles' a 'no disponibles' 
+								for(int i=posUltimoPintado - segmento; i >= 0; i--)
+								{	
+									if( matriz[x][i] == ' ' )
+										matriz[x][i] = '-';	
+	
+								}	
+								
+								filasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,10);
+							}
+						}
 					
 
 					}
@@ -573,6 +599,31 @@ public class main {
 								columnasResueltas[x]=true;
 								iteracion++;
 								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,9);
+							}
+						}
+						
+						/**PINTAR REGLA 10 EN COLUMNA*/
+						if(posUltimoPintado < N)
+						{
+							if(disponiblesFinal == false && columnasResueltas[x] == false)
+							{
+								//Se pinta el segmento completo a partir de la ultima posicion pintada 
+								for(int i=posUltimoPintado; i > posUltimoPintado - segmento; i--)
+								{
+									matriz[i][x] = '#';
+								}
+								
+								//Se actualizan las posiciones (anteriores al segmento) de 'disponibles' a 'no disponibles' 
+								for(int i=posUltimoPintado - segmento; i >= 0; i--)
+								{	
+									if( matriz[i][x] == ' ' )
+										matriz[i][x] = '-';	
+	
+								}	
+								
+								columnasResueltas[x]=true;
+								iteracion++;
+								mostrarMatriz(N,M,matriz,iteracion,indice,tipo,10);
 							}
 						}
 						
