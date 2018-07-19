@@ -890,18 +890,54 @@ public class main {
 			if(columnasResueltas[i] != auxFilasResueltas[i])
 				columnasIguales = false;
 		}
+		System.out.println("-----------AVANCE -----------------");
 		
+		System.out.println("\nAuxFilas");
+		for (int i=0; i<auxFilasResueltas.length; i++)
+		{
+			System.out.println("***"+auxFilasResueltas[i]);
+		}
+		
+		System.out.println("\nFilas");
+		for (int i=0; i<filasResueltas.length; i++)
+		{
+			System.out.println("***"+filasResueltas[i]);
+		}
+		
+		System.out.println("\nAuxColumnas:");
+		for (int i=0; i<auxColumnasResueltas.length; i++)
+		{
+			System.out.println("***"+auxColumnasResueltas[i]);
+		}
+		
+		System.out.println("\nColumnas:");
+		for (int i=0; i<columnasResueltas.length; i++)
+		{
+			System.out.println("***"+columnasResueltas[i]);
+		}
+		
+		// Comprobación si son iguales
 		for(int i=0; i<filasResueltas.length; i++)
 		{
-			if(filasResueltas[i] != auxColumnasResueltas[i])
+			if(filasResueltas[i] != auxFilasResueltas[i])
 				filasIguales = false;
 		}
+		for(int i=0; i<columnasResueltas.length; i++)
+		{
+			if(columnasResueltas[i] != auxColumnasResueltas[i])
+				columnasIguales = false;
+		}
+		
 		
 		//NO HAY AVANCE
 		if( filasIguales && columnasIguales)
 			return true;
 		else
+		{
+			System.out.println("Hay Avance");
 			return false;
+		}
+			
 	}
 	
 
