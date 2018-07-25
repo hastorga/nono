@@ -10,13 +10,7 @@ public class Lectura {
 	
 	private int N,M;
 	
-	public void leer_ficheros ()
-	{
-		leer_columnas_filas ();
-		
-	}	
-	
-	public void leer_columnas_filas() {
+	public void leer_ficheros() {
 			
 			File archivo = null;
 		    FileReader fr = null;
