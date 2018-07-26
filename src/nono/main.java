@@ -50,15 +50,7 @@ public class main {
 		while( sinAvance==false)
 		{
 			
-			/*
-			System.out.println("\n************************************************************************");
-		    System.out.println("\n\t(WHILE: "+ cont + ") - Juego terminado?: " + nonoResuelto(filasResueltas,columnasResueltas));
-		    System.out.println("\n************************************************************************");
-			
-			System.out.println("\n\tSE COPIAN ARRAYS");
-		
-			*/
-			
+			//Se actualizan arreglos auxiliares
 			auxFilasResueltas = filasResueltas.clone();
 		    auxColumnasResueltas = columnasResueltas.clone();
 			
@@ -757,11 +749,9 @@ public class main {
 			}//Fin - For de columnas
 			
 			
-		    
+		    //Se actualiza la variable para ver si es necesario un nuevo ciclo de revision
 		    sinAvance = sinAvance(filasResueltas, columnasResueltas, auxFilasResueltas, auxColumnasResueltas);
 		    
-		    //System.out.println("\n\t\t[sinAvance while] : " + sinAvance);
-		    //System.out.println("\n\t\t[nonoResuelto while] : " + nonoResuelto);
 			
 			cont++;
 			
@@ -786,13 +776,7 @@ public class main {
 		System.out.print("\n***************************************\n");
 		
 		mostrarMatrizCompleta(N,M,matriz,columnas,filas);
-		
-		System.out.print("\n\n***************************************");
-		System.out.print("\n         FILAS Y COLUMNAS              \n");
-		System.out.print("\n***************************************\n");
-		
-		mostrarResueltas(filasResueltas, columnasResueltas);
-		
+			
 			
 	}
 
